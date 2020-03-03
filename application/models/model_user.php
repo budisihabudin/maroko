@@ -52,24 +52,24 @@ class Model_user extends CI_Model
 	/*data artikel*/
 	public function tampil_dataartikel()
 	{
-		$id_pengguna = $this->session->id_pengguna;
-
+		//$id_pengguna = $this->session->id_pengguna;
+		$id_pengguna = $this->session->userdata('id_anggota');
 		
 		/*$this->db->where('id_pengguna',$id_pengguna);
 		return $this->db->get('tb_artikel');*/
-		$this->db->select('tb_artikel.id_artikel, tb_artikel.judul,tb_artikel.isi_teks, tb_artikel.foto, tb_artikel.waktu, tb_artikel.id_pengguna, tb_artikel.id_kategori_artikel, tb_kategori_artikel.kategori, tb_pengguna_sistem.username');
+		$this->db->select('tb_artikel.id_artikel, tb_artikel.judul,tb_artikel.isi_teks, tb_artikel.foto, tb_artikel.waktu, tb_artikel.id_anggota, tb_artikel.id_kategori_artikel, tb_kategori_artikel.kategori, tb_data_anggota.username');
 		$this->db->from('tb_artikel');
 		$this->db->join('tb_kategori_artikel','tb_kategori_artikel.id_kategori_artikel = tb_artikel.id_kategori_artikel');
-		$this->db->join('tb_pengguna_sistem','tb_pengguna_sistem.id_pengguna = tb_artikel.id_pengguna');
-		$this->db->where('tb_artikel.id_pengguna',$id_pengguna);
+		$this->db->join('tb_data_anggota','tb_data_anggota.id_anggota = tb_artikel.id_anggota');
+		$this->db->where('tb_artikel.id_anggota',$id_pengguna);
 		$query = $this->db->get()->result();
 		return $query;
 	}
 	/*data dokumen*/
 	public function tampil_datadokumen()
 	{
-		$id_pengguna = $this->session->id_pengguna;
-		$this->db->where('id_pengguna',$id_pengguna);
+		$id_pengguna = $this->session->userdata('id_anggota');
+		$this->db->where('id_anggota',$id_pengguna);
 		return $this->db->get('tb_dokumen');
 		/*$this->db->select('tb_dokumen.id_dokumen, tb_dokumen.dokumen, tb_dokumen.keterangan, tb_dokumen.id_pengguna, tb_dokumen.dikirim_pada, tb_pengguna_sistem.nama');
 		$this->db->from('tb_dokumen');

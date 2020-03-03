@@ -188,7 +188,7 @@ class User extends CI_Controller
 	{
 
 		$title['title'] = ' | Data Dokumen';
-		$data['tb_pengguna_sistem'] = $this->db->get_where('tb_pengguna_sistem',['username'=>$this->session->userdata('username')])->row_array();
+		$data['tb_pengguna_sistem'] = $this->db->get_where('tb_data_anggota',['username'=>$this->session->userdata('username')])->row_array();
 		$data1['tb_dokumen'] = $this->model_user->tampil_datadokumen()->result();
 		$this->load->view('templates/header_dashboard',$title);
 		$this->load->view('backend/user/data/data_dokumen',$data1);
