@@ -67,52 +67,50 @@ foreach ($tb_data_anggota->result_array() as $r)
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Jenis Kelamin</label>
                 <div class="col-sm-10">
-                   <input type="radio" name="jk"  value="1" value="<?php echo $r['jk'] ?>">&nbsp;Laki - Laki&nbsp;
-                   <input type="radio" name="jk"  value="2" value="<?php echo $r['jk'] ?>">&nbsp;Perempuan
-                 
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['jk'] ?>" name="jk">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">No. Telepon</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['no_telp'] ?>" >
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['no_telp'] ?>" name="no_telp">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Nama Ayah</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['nama_ayah'] ?>" >
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['nama_ayah'] ?>" name="nama_ayah">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Nama Ibu</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['nama_ibu'] ?>" >
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['nama_ibu'] ?>" name="nama_ibu">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Pekerjaan Ayah</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['pekerjaan_ayah'] ?>" >
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['pekerjaan_ayah'] ?>" name="pekerjaan_ayah">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Pekerjaan Ibu</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['pekerjaan_ibu'] ?>" >
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['pekerjaan_ibu'] ?>" name="pekerjaan_ibu">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">SD </label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['sd'] ?>" >
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['sd'] ?>" name="sd" >
                 </div>
               </div>
 
             <div class="form-group row">
-                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">SP </label>
+                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">SMP </label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['sd'] ?>" >
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['smp'] ?>" name="smp" >
                 </div>
               </div>              
                   <div class="form-group text-center">

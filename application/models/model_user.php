@@ -99,7 +99,7 @@ class Model_user extends CI_Model
 	public function update_dataanggota($where,$data,$table)
 	{
 		$this->db->where($where);
-		$this->db->update($table,$data);
+		return $this->db->update($table,$data);
 	}
 	/*profil*/
 	public function edit_databiodata($where,$data,$table)

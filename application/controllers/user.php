@@ -287,6 +287,7 @@ class User extends CI_Controller
 				'nama_ayah'=> htmlspecialchars($this->input->post('nama_ayah'),true),
 				'nama_ibu'=> htmlspecialchars($this->input->post('nama_ibu'),true),
 				'pekerjaan_ayah'=> htmlspecialchars($this->input->post('pekerjaan_ayah'),true),
+				'pekerjaan_ibu'=> htmlspecialchars($this->input->post('pekerjaan_ibu'),true),
 				'sd'=> htmlspecialchars($this->input->post('sd'),true),
 				'smp'=> htmlspecialchars($this->input->post('smp'),true),
 				'sma'=> htmlspecialchars($this->input->post('sma'),true),
@@ -294,8 +295,10 @@ class User extends CI_Controller
 			);
 		/*print_r($data);
 		die();*/
-		$this->model_user->update_dataanggota($where,$data,'tb_data_anggota');
-		redirect('admin/lihat_profil','refresh');
+		$update = $this->model_user->update_dataanggota($where,$data,'tb_data_anggota');
+		if ($update) {
+			redirect('user/lihat_profil','refresh');
+		}
 	}
 	/*delete*/
 	/*Biodata*/
