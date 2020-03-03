@@ -80,7 +80,8 @@ class Model_user extends CI_Model
 	/*data biodata*/
 	public function tampil_databiodata()
 	{
-		$id_anggota = $this->session->id_anggota;
+		//$id_anggota = $this->session->id_anggota;
+		$id_anggota = $this->session->userdata('id_anggota');
 		
 		$this->db->select('tb_data_anggota.id_anggota, tb_data_anggota.foto, tb_data_anggota.nik, tb_data_anggota.nama, tb_data_anggota.alamat_ind, tb_data_anggota.alamat_mrk, tb_data_anggota.jk, tb_data_anggota.no_telp, tb_data_anggota.nama_ayah,tb_data_anggota.nama_ibu, tb_data_anggota.pekerjaan_ayah,tb_data_anggota.pekerjaan_ibu,tb_data_anggota.id_pendidikan, tb_data_anggota.id_pengguna, tb_pendidikan.pendidikan,');
 		$this->db->from('tb_data_anggota');
