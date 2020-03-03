@@ -86,7 +86,6 @@ class Model_user extends CI_Model
 		$this->db->select('tb_data_anggota.id_anggota, tb_data_anggota.foto, tb_data_anggota.nik, tb_data_anggota.nama, tb_data_anggota.alamat_ind, tb_data_anggota.alamat_mrk, tb_data_anggota.jk, tb_data_anggota.no_telp, tb_data_anggota.nama_ayah,tb_data_anggota.nama_ibu, tb_data_anggota.pekerjaan_ayah,tb_data_anggota.pekerjaan_ibu,tb_data_anggota.id_pendidikan, tb_data_anggota.id_pengguna, tb_pendidikan.pendidikan,');
 		$this->db->from('tb_data_anggota');
 		$this->db->join('tb_pendidikan','tb_pendidikan.id_pendidikan = tb_data_anggota.id_pendidikan','left');
-		$this->db->join('tb_pengguna_sistem','tb_pengguna_sistem.id_pengguna = tb_data_anggota.id_pengguna','left');
 		$this->db->where('tb_data_anggota.id_anggota',$id_anggota);
 		$query = $this->db->get()->result();
 		return $query;
