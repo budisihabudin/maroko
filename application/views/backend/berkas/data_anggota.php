@@ -144,9 +144,9 @@
                 <label>ANGGOTA</label>
                   <select name="id_pengguna" class="form-control">
                     <option>-- PILIH PENGGUNA --</option>
-                    <?php $id_pengguna = $this->db->get('tb_pengguna_sistem')->result(); ?>
+                    <?php $id_pengguna = $this->db->get('tb_data_anggota')->result(); ?>
                     <?php foreach ($id_pengguna as $row): ?>
-                      <option value="<?= $row->id_pengguna; ?>"><?= $row->username ?></option>
+                      <option value="<?= $row->id_anggota; ?>"><?= $row->nama ?></option>
                     <?php endforeach ?>
                   </select>
                     <?php echo form_error('id_pengguna'); ?>

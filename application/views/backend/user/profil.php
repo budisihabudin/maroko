@@ -1,3 +1,4 @@
+
 <div class="content-wrapper">
 
  <!-- Main content -->
@@ -25,8 +26,12 @@ foreach ($tb_data_anggota->result_array() as $r)
           <div class="box box-primary">
             <div class="box-body box-profile">
               <?php echo form_open_multipart('user/editprofil');?>
-
-              <img style="width: 200px; height: 200px;"  class="profile-user-img img-responsive img-circle" src="<?= base_url('upload/foto/').$r['foto']; ?>" alt="User profile picture" >
+              <?php if (is_file(FCPATH . 'upload/foto/' . $r['foto'])): ?>
+              <?php $img_url = BASE_URL . 'upload/foto/' . $r['foto']; ?>
+              <?php else: ?>
+              <?php $img_url = BASE_URL . 'upload/foto/default.png'; ?>
+              <?php endif; ?>
+              <img style="width: 200px; height: 200px;"  class="profile-user-img img-responsive img-circle" src="<?= $img_url  ?>" alt="User profile picture" >
               <!--  <img style="width: 200px; height: 200px;"  class="profile-user-img img-responsive img-circle" src="<?php echo base_url('upload/foto').$r->foto; ?>" alt="User profile picture" > -->
                <br>
               <!-- <h3 class="profile-username text-center"><?= $r->nama; ?></h3> -->
@@ -152,7 +157,7 @@ foreach ($tb_data_anggota->result_array() as $r)
           </div>
           <!-- /.box -->
 
-          <?php } ?>
+<?php } ?>
 
     
         </div>

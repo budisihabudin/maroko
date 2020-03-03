@@ -253,7 +253,7 @@ class User extends CI_Controller
 	public function lihat_profil()
 	{
 		$title['title'] = ' | Profil ';
-		$data['tb_data_anggota'] = $this->db->get_where('tb_data_anggota',['username'=>$this->session->userdata('username')])->row_array();
+		//$data['tb_data_anggota'] = $this->db->get_where('tb_data_anggota',['username'=>$this->session->userdata('username')]);
 		$data['tb_data_anggota'] = $this->model_user->tampil_dataprofil();
 		$this->load->view('templates/header_dashboard',$title);
 		$this->load->view('backend/user/profil',$data);
@@ -266,7 +266,7 @@ class User extends CI_Controller
 	public function editprofil($id_anggota)
 	{
 		$title['title'] = ' | Profil ';
-		$data['tb_data_anggota'] = $this->db->get_where('tb_data_anggota',['username'=>$this->session->userdata('username')])->row_array();
+		//$data['tb_data_anggota'] = $this->db->get_where('tb_data_anggota',['username'=>$this->session->userdata('username')])->row_array();
 		$data['tb_data_anggota'] = $this->model_user->tampil_dataprofil();
 		$this->load->view('templates/header_dashboard',$title);
 		$this->load->view('backend/user/editprofil',$data);
@@ -291,11 +291,10 @@ class User extends CI_Controller
 				'smp'=> htmlspecialchars($this->input->post('smp'),true),
 				'sma'=> htmlspecialchars($this->input->post('sma'),true),
 				'pgtinggi'=> htmlspecialchars($this->input->post('pgtinggi'),true),
-				'id_anggota'=> htmlspecialchars($this->input->post('id_anggota'),true),
 			);
 		/*print_r($data);
 		die();*/
-		$this->model_user->update_dataangota($where,$data,'tb_data_anggota');
+		$this->model_user->update_dataanggota($where,$data,'tb_data_anggota');
 		redirect('admin/lihat_profil','refresh');
 	}
 	/*delete*/

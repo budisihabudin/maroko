@@ -36,11 +36,17 @@ class Model_user extends CI_Model
 	public function tampil_dataprofil()
 	{
 		$id_anggota = $this->session->id_anggota;
-		
-		$query = $this->db->query("SELECT tb_data_anggota.*, tb_pendidikan.* 
-								   FROM tb_data_anggota 
-								   INNER JOIN tb_pendidikan ON tb_pendidikan.id_pendidikan = tb_data_anggota.id_pendidikan
-								   WHERE tb_data_anggota.id_anggota = ".$id_anggota."");
+		$this->db->select('tb_data_anggota.id_anggota, tb_data_anggota.nama, tb_data_anggota.alamat_ind, tb_data_anggota.alamat_mrk, tb_data_anggota.sd, tb_data_anggota.smp, tb_data_anggota.sma, tb_data_anggota.jk, tb_data_anggota.nik, tb_data_anggota.pgtinggi, tb_data_anggota.id_pendidikan, tb_data_anggota.id_pengguna, tb_data_anggota.id_pesantren, tb_data_anggota.id_dokumen, tb_data_anggota.status_pengguna, tb_data_anggota.username, tb_data_anggota.password, tb_data_anggota.status_akun, tb_data_anggota.foto, tb_data_anggota.no_telp, tb_data_anggota.nama_ayah, tb_data_anggota.nama_ibu, tb_data_anggota.pekerjaan_ayah, tb_data_anggota.pekerjaan_ibu, tb_pendidikan.id_pendidikan, tb_pendidikan.pendidikan, tb_pendidikan.jurusan, tb_pendidikan.fakultas, tb_pendidikan.kelas');
+
+		$this->db->from('tb_data_anggota');
+		$this->db->join('tb_pendidikan', 'tb_pendidikan.id_pendidikan = tb_data_anggota.id_pendidikan', 'left');
+
+		$this->db->where(['tb_data_anggota.username'=> $this->session->userdata('username')]);
+		$query = $this->db->get();
+		// $query = $this->db->query("SELECT tb_data_anggota.*, tb_pendidikan.* 
+		// 						   FROM tb_data_anggota 
+		// 						   INNER JOIN tb_pendidikan ON tb_pendidikan.id_pendidikan = tb_data_anggota.id_pendidikan
+		// 						   WHERE tb_data_anggota.id_anggota = ".$id_anggota."");
 		return $query;
 	}
 	/*data artikel*/

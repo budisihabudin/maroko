@@ -48,6 +48,18 @@ defined('FOPEN_READ_WRITE_CREATE')              OR define('FOPEN_READ_WRITE_CREA
 defined('FOPEN_WRITE_CREATE_STRICT')            OR define('FOPEN_WRITE_CREATE_STRICT', 'xb');
 defined('FOPEN_READ_WRITE_CREATE_STRICT')       OR define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
 
+$http = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 's' : '') . '://';
+$fo = str_replace("index.php","", $_SERVER['SCRIPT_NAME']);
+$base = $base = "$http" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . "" . $fo;
+
+defined('BASE_URL') 			OR define('BASE_URL'			, $base);
+//defined('BASE_ASSET') 			OR define('BASE_ASSET'			, BASE_URL . 'assets');
+defined('UPLOADPATH') 			OR define('UPLOADPATH'			, FCPATH . 'si-content/uploads');
+defined('TEMPLATEPATH') 		OR define('TEMPLATEPATH'			, FCPATH . 'si-content/si-templates/');
+defined('FRONTENDTPATH') 		OR define('FRONTENDTPATH'			, BASE_URL . 'si-content/si-templates/frontend/');
+defined('UPLOAD_DIR') 			OR define('UPLOAD_DIR'			, BASE_URL . 'si-content/uploads');
+defined('PLUGLINK') 			OR define('PLUGLINK'			, BASE_URL . 'si-content/plugins/');
+
 /*
 |--------------------------------------------------------------------------
 | Exit Status Codes

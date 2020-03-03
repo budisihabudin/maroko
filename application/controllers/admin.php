@@ -338,6 +338,8 @@ class Admin extends CI_Controller
 
 		$title['title'] = ' | Data Anggota';
 		$data['tb_data_anggota'] = $this->model_admin->tampil_dataanggota();
+
+		
 		$this->load->view('templates/header_dashboard',$title);
 		$this->load->view('backend/berkas/data_anggota',$data);
 		$this->load->view('backend/admin/sidebar');

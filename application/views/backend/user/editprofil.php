@@ -16,7 +16,6 @@
         <div class="col-md-7" >
 <?php 
 foreach ($tb_data_anggota->result_array() as $r) 
-  var_dump($r['nama']);
   
   {
  
@@ -24,49 +23,53 @@ foreach ($tb_data_anggota->result_array() as $r)
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <?php echo form_open_multipart('user/saveprofil');?>
-
-              <img style="width: 200px; height: 200px;"  class="profile-user-img img-responsive img-circle" src="<?= base_url('upload/foto/').$r['foto']; ?>" alt="User profile picture" >
-              <!--  <img style="width: 200px; height: 200px;"  class="profile-user-img img-responsive img-circle" src="<?php echo base_url('upload/foto').$r->foto; ?>" alt="User profile picture" > -->
+              <?php echo form_open_multipart('user/saveprofil/'.$r['id_anggota']);?>
+              <?php if (is_file(FCPATH . 'upload/foto/' . $r['foto'])): ?>
+              <?php $img_url = BASE_URL . 'upload/foto/' . $r['foto']; ?>
+              <?php else: ?>
+              <?php $img_url = BASE_URL . 'upload/foto/default.png'; ?>
+              <?php endif; ?>
+              <img style="width: 200px; height: 200px;"  class="profile-user-img img-responsive img-circle" src="<?= $img_url; ?>" alt="User profile picture" >
+              
                <br>
-              <!-- <h3 class="profile-username text-center"><?= $r->nama; ?></h3> -->
-
-              <!-- <p class="text-muted text-center"><?php echo $r->status_pengguna; ?></p> -->
+              
                <div class="form-group row">
                 <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Nama</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" id="colFormLabelSm" value="<?php echo $r["nama"] ?>" >
+                  <input type="text" class="form-control form-control-sm" id="colFormLabelSm" value="<?php echo $r["nama"] ?>" name="nama">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Username</label>
                 <div class="col-sm-10">
-                  <input type="text" name="username" class="form-control form-control-sm" id="colFormLabelSm" value="<?php echo $r['username'] ?>" >
+                  <input type="text" name="username" class="form-control form-control-sm" id="colFormLabelSm" value="<?php echo $r['username'] ?>" name="username">
                 </div>
               </div>
 
               <div class="form-group row">
                 <label for="colFormLabel" class="col-sm-2 col-form-label">Pendidikan </label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="colFormLabel" value="<?php echo $r['pendidikan'] ?>" >
+                  <input type="text" class="form-control" id="colFormLabel" value="<?php echo $r['pendidikan'] ?>" name="pendidikan">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Alamat Indonesia</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['alamat_ind'] ?>" >
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['alamat_ind'] ?>" name="alamat_ind">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Alamat Maroko</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['alamat_mrk'] ?>" >
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['alamat_mrk'] ?>" name="alamat_mrk">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Jenis Kelamin</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['jk'] ?>" >
+                   <input type="radio" name="jk"  value="1" value="<?php echo $r['jk'] ?>">&nbsp;Laki - Laki&nbsp;
+                   <input type="radio" name="jk"  value="2" value="<?php echo $r['jk'] ?>">&nbsp;Perempuan
+                 
                 </div>
               </div>
               <div class="form-group row">
@@ -113,8 +116,8 @@ foreach ($tb_data_anggota->result_array() as $r)
                 </div>
               </div>              
                   <div class="form-group text-center">
-                    <button type="submit" class="btn btn-warning"><a class="text-black" href="<?php echo base_url('user/saveprofil'); ?>">Save</a></button>
-                      <!-- <a href="<?php echo base_url('user/editprofil'); ?>"><button type="submit" class="btn btn-primary btn-block">Edit</button></a> -->
+                    <button type="submit" class="btn btn-warning"><a class="text-black" >Save</a></button>
+                     
                   </div>
                   
 
