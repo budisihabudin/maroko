@@ -49,9 +49,9 @@ class Model_admin extends CI_Model
 					'pekerjaan_ayah' => htmlspecialchars($this->input->post('pekerjaan_ayah'),true),
 					'pekerjaan_ibu' => htmlspecialchars($this->input->post('pekerjaan_ibu'),true),
 					'id_pendidikan' => htmlspecialchars($this->input->post('id_pendidikan'),true),
-					'id_pengguna' => htmlspecialchars($this->input->post('id_pengguna'),true),
+					'id_anggota' => htmlspecialchars($this->input->post('id_anggota'),true),
 				];
-				$this->db->insert('tb_data_anggota',$data);
+				return $this->db->insert('tb_data_anggota',$data);
 	}
 	/*Read */
 	/*data kategori artikel*/
@@ -119,7 +119,7 @@ class Model_admin extends CI_Model
 		$this->db->select('tb_data_anggota.id_anggota,tb_data_anggota.foto, tb_data_anggota.nik, tb_data_anggota.nama, tb_data_anggota.alamat_ind, tb_data_anggota.alamat_mrk, tb_data_anggota.jk, tb_data_anggota.no_telp, tb_data_anggota.nama_ayah,tb_data_anggota.nama_ibu, tb_data_anggota.pekerjaan_ayah, tb_data_anggota.pekerjaan_ibu, tb_data_anggota.id_pendidikan, tb_data_anggota.id_anggota, tb_pendidikan.pendidikan, tb_data_anggota.status_pengguna');
 		$this->db->from('tb_data_anggota');
 		$this->db->join('tb_pendidikan','tb_pendidikan.id_pendidikan = tb_data_anggota.id_pendidikan','left');
-		/*$this->db->join('tb_pengguna_sistem','tb_pengguna_sistem.id_pengguna = tb_data_anggota.id_pengguna','left');*/
+		/*$this->db->join('tb_data_anggota','tb_data_anggota.id_anggota = tb_data_anggota.id_anggota','left');*/
 
 		$query = $this->db->get()->result();
 		return $query;
@@ -127,21 +127,27 @@ class Model_admin extends CI_Model
 	/*data pengguna sistem*/
 	public function tampilp()
 	{
-		return $this->db->get('tb_pengguna_sistem');
+		return $this->db->get('tb_data_anggota');
 	}
 	public function tampil_datapenggunasistem()
 	{
-		$this->db->select('tb_pengguna_sistem.id_pengguna, tb_pengguna_sistem.nama, tb_pengguna_sistem.username,  tb_pengguna_sistem.daftar_pada, tb_pengguna_sistem.status_akun, tb_pengguna_sistem.status_pengguna, tb_aturan_pengguna_sistem.status_pengguna');
-		$this->db->from('tb_pengguna_sistem');
-		$this->db->join('tb_aturan_pengguna_sistem','tb_aturan_pengguna_sistem.status_pengguna = tb_pengguna_sistem.status_pengguna');
+		$this->db->select('tb_data_anggota.id_anggota, tb_data_anggota.nama, tb_data_anggota.username,  tb_data_anggota.daftar_pada, tb_data_anggota.status_akun, tb_data_anggota.status_pengguna, tb_aturan_pengguna_sistem.status_pengguna');
+		$this->db->from('tb_data_anggota');
+		$this->db->join('tb_aturan_pengguna_sistem','tb_aturan_pengguna_sistem.status_pengguna = tb_data_anggota.status_pengguna');
 		$query = $this->db->get()->result();
 		return $query;
 	}
 	/*update*/
+	/*data anggota*/
+	public function update_anggota($where,$data,$table)
+	{
+		$this->db->where($where);
+		return $this->db->update($table,$data);
+	}
 	/*data pengguna sistem*/
 	public function update_datapenggunasistem($where,$data,$table)
 	{
-		$this->db->order_by('id_pengguna','desc');
+		$this->db->order_by('id_anggota','desc');
 		$this->db->where($where);
 		$this->db->update($table,$data);
 	}

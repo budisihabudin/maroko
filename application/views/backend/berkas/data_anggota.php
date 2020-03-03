@@ -56,7 +56,7 @@
                 <tr>
                   <!-- <input type="checkbox" class="delete_checkbox" value="'.$id.'" name="id">&nbsp;&nbsp; -->
                   <td><?php echo $i; ?></td>
-                  <td><img width="200" height="200" src="<?php echo base_url().'upload/foto/'.$r->foto ?>"></td>
+                  <td><img width="200" height="200" src="<?php $foto = (is_file(FCPATH.'upload/foto/'.$r->foto)) ? $foto = base_url('upload/foto/'.$r->foto) : $foto =  base_url('upload/foto/default.png') ; echo $foto;   ?>"></td>
                   <td nowrap><?php echo $r->nik; ?></td>
                   <td nowrap><?php echo $r->nama; ?></td>
                   <td nowrap><?php echo $r->alamat_ind; ?></td>
@@ -142,14 +142,14 @@
           </div>
            <div class="form-group">
                 <label>ANGGOTA</label>
-                  <select name="id_pengguna" class="form-control">
+                  <select name="status_pngguna" class="form-control">
                     <option>-- PILIH PENGGUNA --</option>
-                    <?php $id_pengguna = $this->db->get('tb_data_anggota')->result(); ?>
-                    <?php foreach ($id_pengguna as $row): ?>
-                      <option value="<?= $row->id_anggota; ?>"><?= $row->nama ?></option>
+                    <?php $status_pengguna = $this->db->get('tb_aturan_pengguna_sistem')->result(); ?>
+                    <?php foreach ($status_pengguna as $row): ?>
+                      <option value="<?= $row->status_pengguna; ?>"><?= $row->status_pengguna ?></option>
                     <?php endforeach ?>
                   </select>
-                    <?php echo form_error('id_pengguna'); ?>
+                    <?php echo form_error('status_pengguna'); ?>
           </div>
 
 
@@ -179,7 +179,7 @@
           
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Simpan Data Daftar Sekolah</button>
+        <button type="submit" class="btn btn-primary">Simpan Data Anggota</button>
       </div>
 
       </form>

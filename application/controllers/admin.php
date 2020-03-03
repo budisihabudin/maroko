@@ -71,10 +71,10 @@ class Admin extends CI_Controller
 		$judul = $this->input->post('judul');
 		$isi_teks = $this->input->post('isi_teks');
 		$waktu = $this->input->post('waktu');
-		$id_pengguna = $this->input->post('id_pengguna');
+		$id_anggota = $this->input->post('id_anggota');
 		$id_kategori_artikel = $this->input->post('id_kategori_artikel');
 		$foto = $_FILES['foto'] ['name'];
-		/*$this->form_validation->set_rules('id_pengguna', 'Pendaftar', "required|is_unique[tb_pengguna_sistem.id_pengguna]", array('is_unique' => 'Anda tidak bisa mengupload data dua kali'));
+		/*$this->form_validation->set_rules('id_anggota', 'Pendaftar', "required|is_unique[tb_data_anggota.id_anggota]", array('is_unique' => 'Anda tidak bisa mengupload data dua kali'));
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', validation_errors());
 			redirect('upload/index','refresh');
@@ -103,7 +103,7 @@ class Admin extends CI_Controller
 							'waktu' =>$waktu,
 							'foto' =>$foto,
 							'id_kategori_artikel' =>$id_kategori_artikel,
-							'id_pengguna' => $id_pengguna
+							'id_anggota' => $id_anggota
 						);
 						$this->model_admin->kirim_data($data, 'tb_artikel');
 						 $this->session->set_flashdata("sukses","Terima Kasih Data Anda Sudah Terkirim :)");
@@ -117,9 +117,9 @@ class Admin extends CI_Controller
 	{
 		$nik = $this->session->__ci_last_regenerate;
 		$keterangan = $this->input->post('keterangan');
-		$id_pengguna = $this->input->post('id_pengguna');
+		$id_anggota = $this->input->post('id_anggota');
 		$dokumen = $_FILES['dokumen'] ['name'];
-		/*$this->form_validation->set_rules('id_pengguna', 'Pendaftar', "required|is_unique[tb_pengguna_sistem.id_pengguna]", array('is_unique' => 'Anda tidak bisa mengupload data dua kali'));
+		/*$this->form_validation->set_rules('id_anggota', 'Pendaftar', "required|is_unique[tb_data_anggota.id_anggota]", array('is_unique' => 'Anda tidak bisa mengupload data dua kali'));
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', validation_errors());
 			redirect('upload/index','refresh');
@@ -147,7 +147,7 @@ class Admin extends CI_Controller
 							
 							'keterangan' =>$keterangan,
 							'dokumen' =>$dokumen,
-							'id_pengguna' => $id_pengguna
+							'id_anggota' => $id_anggota
 						);
 						$this->model_admin->kirim_data($data, 'tb_dokumen');
 						 $this->session->set_flashdata("sukses","Terima Kasih Data Anda Sudah Terkirim :)");
@@ -162,7 +162,7 @@ class Admin extends CI_Controller
 	$this->form_validation->set_rules('nama','Nama','required|trim',[
 			'required'=>'Kolom {field} Harus Diisi :('
 		]);
-		$this->form_validation->set_rules('username','Username','required|trim|is_unique[tb_pengguna_sistem.username]',
+		$this->form_validation->set_rules('username','Username','required|trim|is_unique[tb_data_anggota.username]',
 			[
 				'is_unique'=> 'Username sudah terdaftar, coba masukkan Username baru.',
 				'required'=> 'Kolom {field} Harus Diisi :(']);
@@ -176,7 +176,7 @@ class Admin extends CI_Controller
 		if ($this->form_validation->run()==false) {
 			
 			$title['title'] = ' | Data Pengguna Sistem';
-			$data['tb_pengguna_sistem'] = $this->model_admin->tampil_datapenggunasistem();
+			$data['tb_data_anggota'] = $this->model_admin->tampil_datapenggunasistem();
 			$this->load->view('templates/header_dashboard',$title);
 			$this->load->view('backend/berkas/data_pengguna_sistem',$data);
 			$this->load->view('backend/admin/sidebar');
@@ -186,12 +186,12 @@ class Admin extends CI_Controller
 			$data = [
 						'nama'=> htmlspecialchars($this->input->post('nama', true)),
 						'username'=> htmlspecialchars($this->input->post('username', true)),
-						'password'=>password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+						'password'=>$this->input->post('password1'),
 						'status_pengguna' =>4,
 						'status_akun'=>1,
 						];
 
-						$this->db->insert('tb_pengguna_sistem', $data);
+						$this->db->insert('tb_data_anggota', $data);
 						redirect('admin/lihat_pengguna_sistem');
 		}
 
@@ -236,18 +236,24 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('pekerjaan_ayah', 'PEKERJAAN AYAH', 'trim|required');
 		$this->form_validation->set_rules('pekerjaan_ibu', 'PEKERJAAN IBU', 'trim|required');
 		$this->form_validation->set_rules('id_pendidikan', 'PENDIDIKAN', 'trim|required');
-		$this->form_validation->set_rules('id_pengguna', 'ANGGOTA', 'trim|required');
 		if ($this->form_validation->run() ==  FALSE) {
 			$title['title'] = ' | Data Pengaturan Jam';
+			$data['tb_data_anggota'] = $this->model_admin->tampil_dataanggota();
 			$this->load->view('templates/header_dashboard',$title);
-			$this->load->view('backend/berkas/anggota',$data);
+			$this->load->view('backend/berkas/data_anggota',$data);
 			$this->load->view('backend/admin/sidebar');
 			$this->load->view('templates/footer_dashboard');
+			echo "Gagal Tambah Data";
 		} 
 		else 
 		{
-			$this->model_admin->masuk_dataanggota();
-			redirect('admin/lihat_data_anggota','refresh');
+			$save = $this->model_admin->masuk_dataanggota();
+			if ($save) {
+ 				redirect('admin/lihat_data_anggota','refresh');
+				
+			} else {
+				echo "gagal";
+			}
 		}	
 	}
 	/*Read*/
@@ -347,16 +353,16 @@ class Admin extends CI_Controller
 	}
 	/*update*/
 	/*data pengguna sistem*/
-	public function simpan_pengguna_sistem($id_pengguna)
+	public function simpan_pengguna_sistem($id_anggota)
 	{
-		$where = array('id_pengguna' => $id_pengguna);
+		$where = array('id_anggota' => $id_anggota);
 		$data =  array(
 				'nama'=> htmlspecialchars($this->input->post('nama'),true),
 				'username'=> htmlspecialchars($this->input->post('username'),true),
 				'status_akun'=> htmlspecialchars($this->input->post('status_akun'),true),
 				'status_pengguna'=> htmlspecialchars($this->input->post('status_pengguna'),true),
 			);
-		$this->model_admin->update_datapenggunasistem($where,$data,'tb_pengguna_sistem');
+		$this->model_admin->update_datapenggunasistem($where,$data,'tb_data_anggota');
 		redirect('admin/lihat_pengguna_sistem','refresh');
 	}
 	/*data daftar sekolah*/
@@ -373,10 +379,15 @@ class Admin extends CI_Controller
 		redirect('admin/lihat_data_pendidikan','refresh');
 	}
 	/*data anggota*/
+	public function edit($id_anggota)
+	{
+		$where = array('id_anggota'=>$id_anggota);
+		$data['tb_data_anggota'] = $this->model_admin->edit_dataanggota($where,'tb_data_anggota')->result();	
+	}
 	public function edit_anggota($id_anggota)
 	{
 		$where = array('id_anggota'=>$id_anggota);
-		$data['tb_data_anggota'] = $this->model_admin->edit_dataanggota($where,'tb_data_anggota')->result();
+		$data['tb_data_anggota'] = $this->model_admin->edit_dataanggota($where,'tb_data_anggota');
 		$title['title'] = ' | Data Anggota';
 		$this->load->view('templates/header_dashboard',$title);
 		$this->load->view('backend/berkas/edit_anggota',$data);
@@ -386,29 +397,77 @@ class Admin extends CI_Controller
 	public function simpan_data_anggota($id_anggota)
 	{
 		$where = array('id_anggota' => $id_anggota);
-		$data =  array(
-				'nik'=> htmlspecialchars($this->input->post('nik'),true),
-				'nama'=> htmlspecialchars($this->input->post('nama'),true),
-				'alamat_ind'=> htmlspecialchars($this->input->post('alamat_ind'),true),
-				'alamat_mrk'=> htmlspecialchars($this->input->post('alamat_mrk'),true),
-				'jk'=> htmlspecialchars($this->input->post('jk'),true),
-				'no_telp'=> htmlspecialchars($this->input->post('no_telp'),true),
-				'nama_ayah'=> htmlspecialchars($this->input->post('nama_ayah'),true),
-				'nama_ibu'=> htmlspecialchars($this->input->post('nama_ibu'),true),
-				'pekerjaan_ayah'=> htmlspecialchars($this->input->post('pekerjaan_ayah'),true),
-				'pekerjaan_ibu'=> htmlspecialchars($this->input->post('pekerjaan_ibu'),true),
-				'id_pendidikan'=> htmlspecialchars($this->input->post('id_pendidikan'),true),
-				'id_pengguna'=> htmlspecialchars($this->input->post('id_pengguna'),true),
-			);
-		$this->model_admin->update_dataanggota($where,$data,'tb_data_anggota');
-		redirect('admin/lihat_data_anggota','refresh');
+		$foto = $_FILES['foto'] ['name'];
+	
+			if (!empty($foto))
+				{
+					$config['upload_path']   = './upload/foto';
+					$config['allowed_types'] = 'jpg|png';
+					$config['encrypt_name']  = false;
+					$config['file_name']     = date('Y-m-d').'-'.$foto;
+
+					$this->load->library('upload', $config);
+
+					if (!$this->upload->do_upload('foto')) 
+					{
+						
+					}
+					else
+					{
+						$foto = $this->upload->data('file_name');
+					}
+
+					$data =  array(
+						'nama'=> htmlspecialchars($this->input->post('nama'),true),
+						'username'=> htmlspecialchars($this->input->post('username'),true),
+						'id_pendidikan'=> htmlspecialchars($this->input->post('id_pendidikan'),true),
+						'alamat_ind'=> htmlspecialchars($this->input->post('alamat_ind'),true),
+						'alamat_mrk'=> htmlspecialchars($this->input->post('alamat_mrk'),true),
+						'jk'=> htmlspecialchars($this->input->post('jk'),true),
+						'no_telp'=> htmlspecialchars($this->input->post('no_telp'),true),
+						'nama_ayah'=> htmlspecialchars($this->input->post('nama_ayah'),true),
+						'nama_ibu'=> htmlspecialchars($this->input->post('nama_ibu'),true),
+						'pekerjaan_ayah'=> htmlspecialchars($this->input->post('pekerjaan_ayah'),true),
+						'pekerjaan_ibu'=> htmlspecialchars($this->input->post('pekerjaan_ibu'),true),
+						'sd'=> htmlspecialchars($this->input->post('sd'),true),
+						'smp'=> htmlspecialchars($this->input->post('smp'),true),
+						'sma'=> htmlspecialchars($this->input->post('sma'),true),
+						'pgtinggi'=> htmlspecialchars($this->input->post('pgtinggi'),true),
+						'foto'=> ($foto),
+					);
+				} else {
+						$data =  array(
+						'nama'=> htmlspecialchars($this->input->post('nama'),true),
+						'username'=> htmlspecialchars($this->input->post('username'),true),
+						'id_pendidikan'=> htmlspecialchars($this->input->post('id_pendidikan'),true),
+						'alamat_ind'=> htmlspecialchars($this->input->post('alamat_ind'),true),
+						'alamat_mrk'=> htmlspecialchars($this->input->post('alamat_mrk'),true),
+						'jk'=> htmlspecialchars($this->input->post('jk'),true),
+						'no_telp'=> htmlspecialchars($this->input->post('no_telp'),true),
+						'nama_ayah'=> htmlspecialchars($this->input->post('nama_ayah'),true),
+						'nama_ibu'=> htmlspecialchars($this->input->post('nama_ibu'),true),
+						'pekerjaan_ayah'=> htmlspecialchars($this->input->post('pekerjaan_ayah'),true),
+						'pekerjaan_ibu'=> htmlspecialchars($this->input->post('pekerjaan_ibu'),true),
+						'sd'=> htmlspecialchars($this->input->post('sd'),true),
+						'smp'=> htmlspecialchars($this->input->post('smp'),true),
+						'sma'=> htmlspecialchars($this->input->post('sma'),true),
+						'pgtinggi'=> htmlspecialchars($this->input->post('pgtinggi'),true),
+					);
+				}
+		
+		/*print_r($data);
+		die();*/
+		$update = $this->model_admin->update_anggota($where,$data,'tb_data_anggota');
+		if ($update) {
+			redirect('admin/lihat_data_anggota','refresh');
+		}
 	}
 	/*profil*/
 	public function lihat_profil()
 	{
 		$title['title'] = ' | Profil ';
-		$data['tb_pengguna_sistem'] = $this->db->get_where('tb_pengguna_sistem',['username'=>$this->session->userdata('username')])->row_array();
-		// $data['tb_pengguna_sistem'] = $this->model_admin->lihat_dataprofil();
+		$data['tb_data_anggota'] = $this->db->get_where('tb_data_anggota',['username'=>$this->session->userdata('username')])->row_array();
+		// $data['tb_data_anggota'] = $this->model_admin->lihat_dataprofil();
 		$this->load->view('templates/header_dashboard',$title);
 		$this->load->view('backend/admin/profil',$data);
 		$this->load->view('backend/admin/sidebar');
@@ -417,7 +476,7 @@ class Admin extends CI_Controller
 	/*profil*/
 	public function edit_profil()
 	{
-		$data['tb_pengguna_sistem'] = $this->db->get_where('tb_pengguna_sistem',['username'=>$this->session->userdata('username')])->row_array();
+		$data['tb_data_anggota'] = $this->db->get_where('tb_data_anggota',['username'=>$this->session->userdata('username')])->row_array();
 
 		$this->form_validation->set_message('required','harus diisi');
 
@@ -446,7 +505,7 @@ class Admin extends CI_Controller
 
 				if($this->upload->do_upload('foto')){
 
-					$old_image = $data['tb_pengguna_sistem']['foto'];
+					$old_image = $data['tb_data_anggota']['foto'];
 					if ($old_image !='default.jpg') {
 						unlink(FCPATH.'assets/foto_admin/'.$old_image);
 					}
@@ -462,7 +521,7 @@ class Admin extends CI_Controller
 
 			$this->db->set('nama',$nama);
 			$this->db->where('username', $username);
-			$this->db->update('tb_pengguna_sistem');
+			$this->db->update('tb_data_anggota');
 
 			$this->session->set_flashdata("sukses","Profil berhasil diperbaharui:)");
 			redirect('admin/lihat_profil');
@@ -478,10 +537,10 @@ class Admin extends CI_Controller
 		redirect('admin/lihat_kategori_artikel','refresh');
 	}
 	/*data pengguna sistem*/
-	public function hapus_pengguna_sistem($id_pengguna)
+	public function hapus_pengguna_sistem($id_anggota)
 	{
-		$where = array('id_pengguna' =>$id_pengguna);
-		$this->model_admin->hapus_datapenggunasistem($where,'tb_pengguna_sistem');
+		$where = array('id_anggota' =>$id_anggota);
+		$this->model_admin->hapus_datapenggunasistem($where,'tb_data_anggota');
 		redirect('admin/lihat_pengguna_sistem','refresh');
 	}
 	/*data daftar sekolah*/

@@ -49,7 +49,13 @@ foreach ($tb_data_anggota->result_array() as $r)
               <div class="form-group row">
                 <label for="colFormLabel" class="col-sm-2 col-form-label">Pendidikan </label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="colFormLabel" value="<?php echo $r['pendidikan'] ?>" name="pendidikan">
+                 <select name="id_pendidikan" class="form-control">
+                    <option>-- PILIH PENDIDIKAN --</option>
+                    <?php $id_pendidikan = $this->db->get('tb_pendidikan')->result(); ?>
+                    <?php foreach ($id_pendidikan as $rr): ?>
+                      <option value="<?= $rr->id_pendidikan; ?>"><?= $rr->pendidikan ?></option>
+                    <?php endforeach ?>
+                  </select>
                 </div>
               </div>
               <div class="form-group row">
@@ -112,7 +118,30 @@ foreach ($tb_data_anggota->result_array() as $r)
                 <div class="col-sm-10">
                   <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['smp'] ?>" name="smp" >
                 </div>
-              </div>              
+              </div>    
+
+            <div class="form-group row">
+                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">SMA </label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['sma'] ?>" name="sma" >
+                </div>
+              </div>    
+              <div class="form-group row">
+                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Perguruan Tinggi</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-lg" id="colFormLabelLg" value="<?php echo $r['pgtinggi'] ?>" name="pgtinggi" >
+                </div>
+              </div>    
+
+              <div class="form-group row">
+                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Foto</label>
+                <div class="col-sm-10">
+                  
+                  <input type="file" name="foto" class=" form-control-lg" id="colFormLabelLg">
+                </div>
+              </div>
+
+
                   <div class="form-group text-center">
                     <button type="submit" class="btn btn-warning"><a class="text-black" >Save</a></button>
                      

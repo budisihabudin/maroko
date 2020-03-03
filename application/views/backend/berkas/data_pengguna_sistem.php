@@ -46,7 +46,7 @@
                 <tbody>
 
                   <?php $i = 1;
-                  foreach ($tb_pengguna_sistem as $r) { 
+                  foreach ($tb_data_anggota as $r) { 
                  ?>
 
                 <tr>
@@ -76,8 +76,8 @@
                   <!-- <td nowrap><?php echo $r->foto; ?></td> -->
                  <td nowrap>
                   <a  data-toggle="modal" data-target="#edit_datapengguna"><i title="Edit" class="fa fa-pencil fa-sm"></i></a>
-                   <!-- <a href="<?php echo base_url().'admin/edit_pengguna_sistem/'.$r->id_pengguna; ?>"> <i class="fa fa-fw fa-pencil" title="Edit"></i></a> --> |
-                  <a href="<?php echo base_url().'admin/hapus_pengguna_sistem/'.$r->id_pengguna; ?>"> <i  class="fa fa-fw fa-trash" title="Hapus"></i></a> <!-- |  <a href="<?php echo base_url().'admin/detail_pendaftar/'.$a->id?>"> <i  class="fa fa-fw fa-eye" title="Detail"></i></a>  -->
+                   <!-- <a href="<?php echo base_url().'admin/edit_pengguna_sistem/'.$r->id_anggota; ?>"> <i class="fa fa-fw fa-pencil" title="Edit"></i></a> --> |
+                  <a href="<?php echo base_url().'admin/hapus_pengguna_sistem/'.$r->id_anggota; ?>"> <i  class="fa fa-fw fa-trash" title="Hapus"></i></a> <!-- |  <a href="<?php echo base_url().'admin/detail_pendaftar/'.$a->id?>"> <i  class="fa fa-fw fa-eye" title="Detail"></i></a>  -->
                   </td>
 
               </tr>
@@ -135,7 +135,7 @@
                   </div> -->
                  <!--  <div class="form-group has-feedback">
                     <label>STATUS PENGGUNA</label>
-                    <select name="id_pengguna" class="form-control">
+                    <select name="id_anggota" class="form-control">
                             <option>-- PILIH PENGGUNA --</option>
                             <?php $pengguna = $this->db->get_where('tb_aturan_pengguna_sistem')->result(); ?>
                             <?php foreach ($pengguna as $row): ?>
@@ -172,7 +172,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?php echo base_url().'admin/simpan_pengguna_sistem/'.$r->id_pengguna; ?>" method="post">
+        <form action="<?php echo base_url().'admin/simpan_pengguna_sistem/'.$r->id_anggota; ?>" method="post">
         
          <div class="form-group has-feedback">
                 <input type="text" name="nama" class="form-control form-control-user" placeholder="Nama Pengguna Sistem" value="<?php echo $r->nama; ?>">

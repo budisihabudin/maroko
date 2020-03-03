@@ -5,7 +5,7 @@
 
 <!--
           <?php echo form_open_multipart('user/post_artikel', ['class' => 'form-group', 'method' => 'post']); ?>
-            <input type="hidden" name="id_pengguna" value="<?= $this->session->userdata('id_pengguna'); ?>">
+            <input type="hidden" name="id_anggota" value="<?= $this->session->userdata('id_anggota'); ?>">
 
             <div class="form-group">
               <label>JUDUL</label>
@@ -104,7 +104,7 @@
             <div class="box-body pad">
               
                   <?php echo form_open_multipart('user/post_artikel', ['class' => 'form-group', 'method' => 'post']); ?>
-            <input type="hidden" name="id_pengguna" value="<?= $this->session->userdata('id_pengguna'); ?>">
+            <input type="hidden" name="id_anggota" value="<?= $this->session->userdata('id_anggota'); ?>">
 
                  <div class="form-group">
               <label>JUDUL</label>

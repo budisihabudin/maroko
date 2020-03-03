@@ -81,7 +81,7 @@
       </div>
       <div class="modal-body">
         <?php echo form_open_multipart('upload/simpan_upload', ['class' => 'form-group', 'method' => 'post']); ?>
-            <input type="hidden" name="id_pengguna" value="<?= $this->session->userdata('id_pengguna'); ?>">
+            <input type="hidden" name="id_anggota" value="<?= $this->session->userdata('id_anggota'); ?>">
 
             <label>KETERANGAN DOKUMEN</label>
             <!-- <input type="text" > -->

@@ -26,9 +26,9 @@ class Upload extends CI_Controller
 	{
 		$nik = $this->session->__ci_last_regenerate;
 		$keterangan = $this->input->post('keterangan');
-		$id_pengguna = $this->input->post('id_pengguna');
+		$id_anggota = $this->input->post('id_anggota');
 		$dokumen = $_FILES['dokumen'] ['name'];
-		/*$this->form_validation->set_rules('id_pengguna', 'Pendaftar', "required|is_unique[tb_pengguna_sistem.id_pengguna]", array('is_unique' => 'Anda tidak bisa mengupload data dua kali'));
+		/*$this->form_validation->set_rules('id_anggota', 'Pendaftar', "required|is_unique[tb_pengguna_sistem.id_anggota]", array('is_unique' => 'Anda tidak bisa mengupload data dua kali'));
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', validation_errors());
 			redirect('upload/index','refresh');
@@ -57,7 +57,7 @@ class Upload extends CI_Controller
 							
 							'keterangan' =>$keterangan,
 							'dokumen' =>$dokumen,
-							'id_pengguna' => $id_pengguna
+							'id_anggota' => $id_anggota
 						);
 						$this->model_upload->kirim_data($data, 'tb_dokumen');
 						 $this->session->set_flashdata("sukses","Terima Kasih Data Anda Sudah Terkirim :)");
